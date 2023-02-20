@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "wallet-development")  %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "wallet-test")  %>
+
+production:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "wallet-production")  %>

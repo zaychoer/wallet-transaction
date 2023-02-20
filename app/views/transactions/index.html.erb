@@ -1,0 +1,56 @@
+<div>
+  <h1>Transactions</h1>
+  <p><%= link_to "Add New", new_transaction_path %></p>
+  <p>Current Balance : <%= current_user.wallet.balance.format %></p>
+</div>
+
+<div class="table-responsive mt-8">
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th><%= sort_link(@q, :transaction_number) %></th>
+        <th><%= sort_link(@q, :from_id) %></th>
+        <th><%= sort_link(@q, :to_id) %></th>
+        <th><%= sort_link(@q, :operation_type) %></th>
+        <th><%= sort_link(@q, :transaction_type) %></th>
+        <th><%= sort_link(@q, :amount) %></th>
+        <th><%= sort_link(@q, :created_at) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @transactions.each_with_index do |transaction, idx| %>
+        <tr>
+          <td class="text-left">
+            <%= idx + 1 %>
+          </td>
+          <td class="text-left">
+            <%= transaction.transaction_number %>
+          </td>
+          <td class="text-left">
+            <%= transaction&.source&.wallet_id %>
+          </td>
+          <td class="text-left">
+            <%= transaction&.target&.wallet_id %>
+          </td>
+          <td class="text-left">
+            <%= transaction&.operation_type %>
+          </td>
+          <td class="text-left">
+            <%= transaction&.transaction_type %>
+          </td>
+          <td class="text-left <%=transaction.credit? ? 'text-red-500' : 'text-blue-500' %> }">
+            <%= transaction.amount.format %>
+          </td>
+          <td class="text-left">
+            <%= transaction.created_at.to_s %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-center mt-10">
+  <%== pagy_nav(@pagy) %>
+</div>

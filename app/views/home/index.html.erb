@@ -1,0 +1,16 @@
+<div class="text-center my-24">
+  <h1 class="tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+    <span class="text-indigo-600">Simple Wallet App</span>
+  </h1>
+
+  <p class="mt-5 mb-10 text-gray-500 sm:text-lg md:text-xl">Internal Wallet Transactional System</p>
+
+
+  <% unless user_signed_in? %>
+    <a href="<%= new_user_registration_path %>" class="btn">Get started</a>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <p class="text-2xl text-gray-900 text-bold">Wallet Balance : <%= current_user.wallet.balance.format %></p>
+  <% end %>
+</div>
